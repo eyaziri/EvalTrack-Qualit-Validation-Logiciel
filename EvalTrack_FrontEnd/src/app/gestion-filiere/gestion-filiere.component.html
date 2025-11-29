@@ -1,0 +1,57 @@
+<div class="page-container">
+    <app-side-bar-admin></app-side-bar-admin>    
+        <div class="content-container">
+          <div class="card">
+            <h2 class="card-header">Gestion des Filières</h2>
+            
+            <div class="card-body">
+              <!-- Liste des filières -->
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let filiere of filieres; let i = index">
+                  <div *ngIf="filiereEnModification !== i" class="d-flex justify-content-between align-items-center">
+                    <span>{{ filiere }}</span>
+                    <div>
+                      <button class="btn btn-sm btn-warning me-2" (click)="modifierFiliere(i)">
+                        <i class="fas fa-edit"></i> Modifier
+                      </button>
+                      <button class="btn btn-sm btn-danger" (click)="supprimerFiliere(i)">
+                        <i class="fas fa-trash"></i> Supprimer
+                      </button>
+                    </div>
+                  </div>
+      
+                  <!-- Formulaire de modification -->
+                  <div *ngIf="filiereEnModification === i" class="modification-form">
+                    <input 
+                      [(ngModel)]="filiereModifiee" 
+                      class="form-control me-2"
+                      placeholder="Nouveau nom"
+                    >
+                    <button class="btn btn-success me-2" (click)="enregistrerModification()">
+                      <i class="fas fa-check"></i> Valider
+                    </button>
+                    <button class="btn btn-secondary" (click)="annulerModification()">
+                      <i class="fas fa-times"></i> Annuler
+                    </button>
+                  </div>
+                </li>
+              </ul>
+      
+              <!-- Formulaire d'ajout -->
+              <div class="ajout-form mt-4">
+                <div class="input-group">
+                  <input 
+                    [(ngModel)]="nouvelleFiliere" 
+                    class="form-control"
+                    placeholder="Nom de la nouvelle filière"
+                    (keyup.enter)="ajouterFiliere()"
+                  >
+                  <button class="btn btn-primary" (click)="ajouterFiliere()">
+                    <i class="fas fa-plus"></i> Ajouter
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

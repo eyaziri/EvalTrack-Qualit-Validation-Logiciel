@@ -1,0 +1,58 @@
+<nav class="sidebar">
+
+  <img src="../../assets/logo.png" alt="Logo" class="logo" />
+
+  <ul>
+   
+
+    <!-- Notes -->
+    <li class="menu-item">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <a  [routerLink]="['/admin/notes']" >Notes</a>
+    </li>
+    
+    <!-- Modifier Notes -->
+    <li class="menu-item">
+      <i class="fa-solid fa-pen-to-square"></i>
+      <a  [routerLink]="['/modifie-note-etudiant']" >Modification d'une note</a>
+    </li>
+
+    <!-- Liste des étudiants -->
+    <li class="menu-item">
+      <i class="fa-solid fa-users"></i>
+      <a  [routerLink]="['/admin/liste-etudiant']">
+        Liste des étudiants
+      </a>
+    </li>
+
+    <!-- Configuration -->
+    <li class="menu-item">
+      <i class="fa-solid fa-gears"></i>
+      <a routerLink="/admin/configuration" routerLinkActive="active">Configuration</a>
+    </li>
+
+    <!-- Réclamation -->
+    <li class="menu-item">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <a routerLink="/admin/reclamation" routerLinkActive="active">Réclamation</a>
+    </li>
+
+    <!-- Ajout des Modules -->
+    <li class="menu-item">
+      <i class="fa-solid fa-plus"></i>
+      <a routerLink="/admin/ajout-module" routerLinkActive="active">Ajout des Modules</a>
+    </li>
+
+    <li class="menu-item">
+      <i class="fas fa-graduation-cap"></i>
+      <a routerLink="/admin/gestion-filiere" routerLinkActive="active">Gestion des Filières</a>
+    </li>
+    
+
+    <!-- Exit -->
+    <li class="menu-item">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <a (click)="onLogout()">Exit</a>
+    </li>
+  </ul>
+</nav>

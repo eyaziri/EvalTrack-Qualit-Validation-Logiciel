@@ -1,0 +1,20 @@
+<header>
+  <div class="icons">
+     <div class="search-icon">
+      <i class="fa-solid fa-magnifying-glass"></i>
+     </div>
+      <div class="bell-icon">
+        <i class="fa-solid fa-bell"></i>
+      </div>
+      <div class="user-avatar">
+        <i class="fa-solid fa-user" (click)="toggleMenu()"></i>
+      </div>
+     
+  </div>
+</header>
+
+<div class="user-menu" *ngIf="isMenuOpen">
+  <p><i class="user-icon">🧑</i>Ameni zakraoui </p>
+  <p><i class="card-icon">💳</i> 01######</p>
+  <p><i class="code-icon">💻</i> Génie Informatique</p>
+</div>

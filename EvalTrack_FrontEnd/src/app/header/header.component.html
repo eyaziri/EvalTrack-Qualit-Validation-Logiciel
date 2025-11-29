@@ -1,0 +1,30 @@
+<header>
+
+  <div class="icons">
+    <div class="search-icon">
+      <i class="fa-solid fa-magnifying-glass"></i>
+     </div>
+      <div class="bell-icon">
+        <i class="fa-solid fa-bell"></i>
+      </div>
+      <div class="user-avatar">
+        <i class="fa-solid fa-user" (click)="toggleMenu()"></i>
+      </div>
+  </div>
+</header>
+
+<div class="user-menu" *ngIf="isMenuOpen">
+  <ng-container *ngIf="idRole === 1; else etudiantTemplate">
+    <!-- Affichage pour admin -->
+    <p><i class="user-icon">🧑</i>{{ student.nomAdmin }}</p>
+    <p><i class="email-icon">📧</i>{{ student.email }}</p>
+  </ng-container>
+
+  <ng-template #etudiantTemplate>
+    <!-- Affichage pour étudiant -->
+    <p><i class="user-icon">🧑</i>{{ student.nomEtudiant }}</p>
+    <p><i class="card-icon">💳</i>{{ student.cinEtudiant }}</p>
+    <p><i class="code-icon">💻</i>{{ student.nomSection }}</p>
+  </ng-template>
+</div>
+

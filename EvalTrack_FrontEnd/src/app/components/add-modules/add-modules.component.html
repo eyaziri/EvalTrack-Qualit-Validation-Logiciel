@@ -1,0 +1,391 @@
+  <div class="container">
+    <h2 class="title">Gestion des Modules</h2>
+  
+    <!-- Sélection de la filière et semestre (toujours visible sous le titre) -->
+    <div class="selection-container">
+      <div class="form-group">
+        <label class="label">Filière</label>
+        <select class="select" [(ngModel)]="selectedFiliere" (change)="onSectionChange($event)">
+          <option *ngFor="let section of sections" [value]="section.idSection">{{ section.nomSection }}</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label class="label">Semestre</label>
+        <select class="select" [(ngModel)]="selectedSemestre" (change)="onSemestreChange($event)">
+          <option *ngFor="let semestre of semestres" [value]="semestre">{{ semestre }}</option>
+        </select>
+      </div>
+    </div>
+  
+    <!-- Vue principale -->
+    <div *ngIf="currentView === 'main'">
+      <div class="action-buttons">
+        <button class="btn btn-add" (click)="switchView('add')">
+          <i class="fas fa-plus"></i> Ajouter
+        </button>
+        <button class="btn btn-edit" (click)="switchView('edit')">
+          <i class="fas fa-edit"></i> Modifier
+        </button>
+        <button class="btn btn-delete" (click)="switchView('delete')">
+          <i class="fas fa-trash"></i> Supprimer
+        </button>
+      </div>
+    </div>
+  
+
+  <!-- Vue Ajout -->
+  <div *ngIf="currentView === 'add'">
+    <div *ngIf="successMessage" class="success-message">
+      <i class="fas fa-check-circle"></i> {{ successMessage }}
+    </div>
+    
+    <div *ngIf="errorMessage" class="error-message">
+      <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+    </div>
+    <h3 class="subtitle">Ajouter un Module ou une Matière</h3>
+   
+    <div *ngIf="!actionType" class="options-container">
+      <button class="option-btn" (click)="setActionType('addModule')">
+        <i class="fas fa-layer-group"></i>
+        <span>Ajouter un nouveau module</span>
+      </button>
+     
+      <button class="option-btn" (click)="setActionType('addMatiere')">
+        <i class="fas fa-book"></i>
+        <span>Ajouter une matière à un module existant</span>
+      </button>
+    </div>
+
+    <!-- Formulaire d'ajout de module -->
+    <div *ngIf="actionType === 'addModule'" class="form-container">  
+          <div class="form-group">
+        <label class="label">Nom du module</label>
+        <input class="input" type="text" [(ngModel)]="newModule.nom" placeholder="Ex: Algorithmique">
+      </div>
+
+      <div class="form-group">
+        <label class="label">Nombre de matières</label>
+        <input class="input" type="number" [(ngModel)]="newModule.nbMatieres" min="1" (change)="initNewMatieres()">
+      </div>
+
+      <div *ngFor="let matiere of newModule.matieres; let i = index" class="matiere-form">
+        <h4 class="matiere-title">Matière {{i+1}}</h4>
+        <div class="form-group">
+          <label class="label">Nom</label>
+          <input class="input" type="text" [(ngModel)]="matiere.nom" placeholder="Ex: Structures de données">
+        </div>
+          <div class="form-group">
+            <label class="label">Coefficient</label>
+            <input class="input" type="number" [(ngModel)]="matiere.coefficient" min="1">
+          </div>
+          <div class="form-group">
+            <label class="label">Description</label>
+            <input class="input" type="text" [(ngModel)]="matiere.description" >
+          </div>
+        <div class="form-group">
+          <label class="label">Pondération</label>
+            <input class="input" type="text" [(ngModel)]="matiere.ponderation" >
+        </div>
+       
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-cancel" (click)="resetAction()">
+          <i class="fas fa-times"></i> Annuler
+        </button>
+        <button class="btn btn-confirm" (click)="addNewModule()">
+          <i class="fas fa-check"></i> Confirmer
+        </button>
+      </div>
+    </div>
+
+    <!-- Formulaire d'ajout de matière -->
+    <div *ngIf="actionType === 'addMatiere'" class="form-container">
+      <div class="form-group">
+        <label class="label">Module cible</label>
+        <select class="select" [(ngModel)]="selectedModuleForMatiere" (change)="onModuleChange($event)" >
+          <option *ngFor="let module of modules" [value]="module.idModule">{{module.nomModule}}</option>
+        </select>
+      </div>
+
+      <div class="matiere-form">
+        <div class="form-group">
+          <label class="label">Nom de la matière</label>
+          <input class="input" type="text" [(ngModel)]="newMatiere.nom" placeholder="Ex: Programmation Orientée Objet">
+        </div>
+          <div class="form-group">
+            <label class="label">Coefficient</label>
+            <input class="input" type="number" [(ngModel)]="newMatiere.coefficient" min="1">
+          </div>
+          <div class="form-group">
+            <label class="label">Description</label>
+            <input class="input" type="text" [(ngModel)]="newMatiere.description" >
+          </div>
+        <div class="form-group">
+          <label class="label">Pondération</label>
+          <input class="input" type="text" [(ngModel)]="newMatiere.ponderation" >
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-cancel" (click)="resetAction()">
+          <i class="fas fa-times"></i> Annuler
+        </button>
+        <button class="btn btn-confirm" (click)="AddMatiereToModule()">
+          <i class="fas fa-check"></i> Confirmer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vue Modification -->
+  <div *ngIf="currentView === 'edit'">
+    <h3 class="subtitle">Modifier un Module ou une Matière</h3>
+    <div *ngIf="successMessage" class="success-message">
+      <i class="fas fa-check-circle"></i> {{ successMessage }}
+    </div>
+    
+    <div *ngIf="errorMessage" class="error-message">
+      <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+    </div>
+    <div class="options-container">
+      <button class="option-btn" (click)="setActionType('editModule')">
+        <i class="fas fa-layer-group"></i>
+        <span>Modifier un module</span>
+      </button>
+     
+      <button class="option-btn" (click)="setActionType('editMatiere')">
+        <i class="fas fa-book"></i>
+        <span>Modifier une matière</span>
+      </button>
+    </div>
+
+<!-- Formulaire de modification de module -->
+<div *ngIf="actionType === 'editModule'" class="form-container">
+  <div class="form-group">
+    <label class="label">Module à modifier</label>
+    <select class="select" [(ngModel)]="selectedModuleToEdit" 
+            (change)="loadModuleToEdit()" name="moduleSelect">
+      <option [value]="null">-- Sélectionnez un module --</option>
+      <option *ngFor="let module of existingModules" [ngValue]="module.idModule">
+        {{ module.nomModule }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Champ de modification (apparaît seulement si module sélectionné) -->
+  <div *ngIf="moduleToEdit" class="form-group">
+    <label class="label">Nouveau nom du module</label>
+    <input class="input" type="text" 
+           [(ngModel)]="moduleToEdit.nomModule"
+           name="moduleName"
+           placeholder="Entrez le nouveau nom"
+           required>
+  </div>
+
+  <div class="action-buttons">
+    <button class="btn btn-cancel" (click)="resetAction()">
+      <i class="fas fa-times"></i> Annuler
+    </button>
+    <button class="btn btn-confirm" (click)="saveModuleChanges()"
+            [disabled]="!moduleToEdit?.nomModule?.trim()">
+      <i class="fas fa-save"></i> Enregistrer
+    </button>
+  </div>
+</div>
+
+
+    <!-- Formulaire de modification de matière -->
+    <div *ngIf="actionType === 'editMatiere'" class="form-container">
+      <!-- Sélection du module -->
+      <div class="form-group">
+        <label class="label">Module</label>
+        <select class="select" [(ngModel)]="selectedModuleForMatiereEdit" 
+        (change)="loadMatieresForEdit()" name="moduleSelect">
+          <option [value]="null">-- Sélectionnez un module --</option>
+          <option *ngFor="let module of existingModules" [ngValue]="module.idModule">
+            {{ module.nomModule }}
+          </option>
+        </select>
+      </div>
+    
+      <!-- Sélection de la matière -->
+      <div class="form-group" *ngIf="selectedModuleForMatiereEdit">
+        <label class="label">Matière à modifier</label>
+        <select class="select" [(ngModel)]="selectedMatiereToEdit" 
+        (change)="loadMatiereToEdit()">
+          <option [ngValue]="null">-- Sélectionnez une matière --</option>
+          <option *ngFor="let matiere of matieresForEdit"
+                  [ngValue]="matiere.matiereId">
+            {{matiere.nom}} (Coef: {{matiere.coefficient}})
+          </option>
+        </select>
+        <small class="debug-info">
+          Nombre de matières: {{matieresForEdit.length}}
+        </small>
+      </div>
+    
+    
+
+
+  <!-- Formulaire d'édition (apparaît seulement si matière sélectionnée) -->
+  <div *ngIf="matiereToEdit" class="matiere-form">
+    <div class="form-group">
+      <label class="label">Nom de la matière</label>
+      <input class="input" type="text" [(ngModel)]="matiereToEdit.nom">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="label">Coefficient</label>
+        <input class="input" type="number" [(ngModel)]="matiereToEdit.coefficient" min="1">
+      </div>
+      <div class="form-group">
+        <label class="label">Description</label>
+        <input class="input" type="text" [(ngModel)]="matiereToEdit.description">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="label">Pondération</label>
+      <input class="input" type="text" [(ngModel)]="matiereToEdit.ponderation">
+
+    </div>
+  </div>
+ 
+
+
+  <div class="action-buttons">
+    <button class="btn btn-cancel" (click)="resetAction()">
+      <i class="fas fa-times"></i> Annuler
+    </button>
+    <button class="btn btn-confirm" (click)="saveMatiereChanges()"
+            [disabled]="!canSaveMatiere()">
+      <i class="fas fa-save"></i> Enregistrer
+    </button>
+  </div>
+</div>
+</div>
+
+  <!-- Vue Suppression -->
+  <div *ngIf="currentView === 'delete'">
+    
+    <h3 class="subtitle">Supprimer un Module ou une Matière</h3>
+    <div *ngIf="successMessage" class="success-message">
+      <i class="fas fa-check-circle"></i> {{ successMessage }}
+    </div>
+    
+    <div *ngIf="errorMessage" class="error-message">
+      <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+    </div>
+    <div class="options-container">
+      <button class="option-btn" (click)="setActionType('deleteModule')">
+        <i class="fas fa-layer-group"></i>
+        <span>Supprimer un module complet</span>
+      </button>
+     
+      <button class="option-btn" (click)="setActionType('deleteMatiere')">
+        <i class="fas fa-book"></i>
+        <span>Supprimer une matière spécifique</span>
+      </button>
+    </div>
+
+    <!-- Suppression de module -->
+    <div *ngIf="actionType === 'deleteModule'" class="form-container">
+      <div class="form-group">
+        <label class="label">Module à supprimer</label>
+        <select class="select" [(ngModel)]="selectedModuleToDelete" (change)="loadModuleDetails()" name="moduleSelect">
+          <option [ngValue]="null">-- Sélectionnez un module --</option>
+          <option *ngFor="let module of existingModules" [ngValue]="module.idModule">
+            {{ module.nomModule }}
+          </option>
+        </select>
+      </div>
+   
+      <div *ngIf="moduleDetails" class="preview-section">
+        <h4>Module à supprimer :</h4>
+        <p><strong>{{ moduleDetails.nomModule }}</strong></p>
+        <p>Contient {{ moduleDetails.listeMatieres.length }} matière(s)</p>
+       
+        <div class="matieres-list" *ngIf="moduleDetails.listeMatieres.length > 0">
+          <h5>Matières incluses :</h5>
+          <ul>
+            <li *ngFor="let matiere of moduleDetails.listeMatieres">
+              {{matiere.nom}} (Coef: {{matiere.coefficient}}, Heures: {{matiere.description}})
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div *ngIf="selectedModuleToDelete" class="warning-message">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>Attention: Cette action supprimera le module et toutes ses matières définitivement.</p>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-cancel" (click)="resetAction()">
+          <i class="fas fa-times"></i> Annuler
+        </button>
+        <button class="btn btn-delete-confirm" (click)="confirmDeleteModule()" [disabled]="!selectedModuleToDelete">
+          <i class="fas fa-trash"></i> Confirmer la suppression
+        </button>
+      </div>
+    </div>
+
+    <!-- Suppression de matière -->
+    <div *ngIf="actionType === 'deleteMatiere'" class="form-container">
+      <div class="form-group">
+        <label class="label">Module</label>
+        <select class="select" [(ngModel)]="selectedModuleForMatiereDelete"
+                (change)="loadMatieresForDelete()" name="moduleSelect">
+          <option [ngValue]="null">-- Sélectionnez un module --</option>
+          <option *ngFor="let module of existingModules" [ngValue]="module.idModule">
+            {{ module.nomModule }}
+          </option>
+        </select>
+      </div>
+   
+      <div class="form-group" *ngIf="selectedModuleForMatiereDelete">
+        <label class="label">Matière à supprimer</label>
+        <select class="select" [(ngModel)]="selectedMatiereToDelete"
+                (change)="loadMatiereDetails()" name="matiereSelect">
+          <option [ngValue]="null">-- Sélectionnez une matière --</option>
+          <option *ngFor="let matiere of getMatieresForDelete(selectedModuleForMatiereDelete)"
+                  [ngValue]="matiere.matiereId">
+            {{matiere.nom}} (Coef: {{matiere.coefficient}})
+          </option>
+        </select>
+        <div *ngIf="getMatieresForDelete(selectedModuleForMatiereDelete).length === 0" class="no-data">
+          Aucune matière disponible pour ce module
+        </div>
+      </div>
+     
+
+      <div *ngIf="selectedMatiereToDelete" class="preview-section">
+        <h4>Matière à supprimer :</h4>
+        <p><strong>{{ getMatiereName(selectedMatiereToDelete) }}</strong></p>
+        <p></p>
+        <p>Coefficient : {{ getMatiereCoefficient(selectedMatiereToDelete) }}</p>
+        <p>Heures : {{ getMatiereDescription(selectedMatiereToDelete) }}</p>
+      </div>
+
+      <div *ngIf="selectedMatiereToDelete" class="warning-message">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>Attention: Cette action supprimera définitivement la matière sélectionnée.</p>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-cancel" (click)="resetAction()">
+          <i class="fas fa-times"></i> Annuler
+        </button>
+        <button class="btn btn-delete-confirm" (click)="confirmDeleteMatiere()" [disabled]="!selectedMatiereToDelete">
+          <i class="fas fa-trash"></i> Confirmer la suppression
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton de retour -->
+  <button *ngIf="currentView !== 'main'" class="btn btn-back" (click)="switchView('main')">
+    <i class="fas fa-arrow-left"></i> Retour à l'accueil
+  </button>
+</div>

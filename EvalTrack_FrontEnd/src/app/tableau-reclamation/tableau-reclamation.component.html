@@ -1,0 +1,32 @@
+<div class="admin-reclamations">
+  <h2 class="title">Liste des réclamations</h2>
+
+  <div *ngFor="let reclamation of reclamations" class="reclamation-card">
+    <div class="reclamation-details">
+      <p><strong>Email de l'étudiant :</strong> {{ reclamation.emailEtudiant }}</p>
+      <p><strong>Type de réclamation :</strong> {{ reclamation.type }}</p>
+      <p><strong>Date de réception :</strong> {{ reclamation.dateCreation | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Matière concernée :</strong> {{ reclamation.matiereConcerne }}</p>
+      <p><strong>Nom de l'enseignant :</strong> {{ reclamation.nomProf }}</p>
+      <p><strong>Statut :</strong> {{ reclamation.statut }}</p>
+    </div>
+
+    <div class="actions">
+      <input type="email" [(ngModel)]="reclamation.email" placeholder="Email du professeur" />
+      <div class="buttons">
+        <!-- Affiche le bouton "Vérifier la note" seulement si le statut est NI ACCEPTEE ni TRAITEE -->
+        <button class="verify" (click)="verifierNote(reclamation)"
+        *ngIf="reclamation.statut !== 'ACCEPTEE' && reclamation.statut !== 'TRAITEE'">
+        Vérifier la note
+        </button>
+
+        <!-- Affiche "Traitement terminé" uniquement si déjà acceptée mais pas encore traitée -->
+        <button class="done" (click)="terminerTraitement(reclamation)"
+        *ngIf="reclamation.statut === 'ACCEPTEE'">
+        Traitement terminé
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

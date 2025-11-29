@@ -1,0 +1,22 @@
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    background-color: #F9F7F7;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .cards {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  app-side-bar-admin {
+    width: 250px; /* Ou une largeur relative comme 20% */
+    height: 100vh; /* Prend la hauteur de la page */
+    background-color: #f4f4f4; /* Exemple de couleur de fond */
+    /* Ajoute tout autre style spécifique pour la sidebar */
+  }

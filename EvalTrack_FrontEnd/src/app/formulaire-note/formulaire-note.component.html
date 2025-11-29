@@ -1,0 +1,86 @@
+<h2 class="title">Modification d'une note</h2>
+
+<form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+  <div class="form-grid">
+
+    <!-- Session -->
+    <div class="form-group">
+      <label>Session :</label>
+      <select formControlName="session"  (change)="onSessionChange($event)">
+        <option value="">-- Sélectionner --</option>
+        <option *ngFor="let session of sessions" [value]="session">{{session}}</option>
+   
+      </select>
+    </div>
+
+    <!-- Section -->
+    <div class="form-group">
+      <label>Section :</label>
+      <select formControlName="section" (change)="onSectionChange($event)">
+        <option value="">-- Sélectionner --</option>
+        <option *ngFor="let section of sections" [value]="section.idSection">{{section.nomSection}}</option>
+       
+      </select>
+    </div>
+
+    <!-- Semestre -->
+    <div class="form-group">
+      <label>Semestre :</label>
+      <select formControlName="semestre" (change)="onSemestreChange($event)">
+        <option value="">-- Sélectionner --</option>
+        <option *ngFor="let semestre of semestres" [value]="semestre">{{semestre}}</option>
+      
+      </select>
+    </div>
+
+    <!-- Module -->
+    <div class="form-group">
+      <label>Module :</label>
+      <select formControlName="module" (change)="onModuleChange($event)">
+        <option value="">-- Sélectionner --</option>
+        <option *ngFor="let module of modules" [value]="module.idModule">{{module.nomModule}}</option>
+       
+      </select>
+    </div>
+
+    <!-- Matière -->
+    <div class="form-group">
+      <label>Matière :</label>
+      <select formControlName="matiere" (change)="onMatiereChange($event)">
+        <option value="">-- Sélectionner --</option>
+        <option *ngFor="let matiere of matieres" [value]="matiere.idMatiere">{{matiere.nomMatiere}}</option>
+        
+      </select>
+    </div>
+
+    <!-- Type d'examen -->
+    <div class="form-group">
+      <label>Type d'examen :</label>
+      <select formControlName="type_exam">
+        <option value="">-- Sélectionner --</option>
+        <option value="DS">DS</option>
+        <option value="Examen">Examen</option>
+      </select>
+    </div>
+
+    <!-- Note -->
+    <div class="form-group" >
+      <label>CIN de l'étudiant :</label>
+      <input type="number" formControlName="cin" placeholder="Entrez la cin de l'étudiant">
+    </div>
+    <div class="form-group">
+        <label>Note à modifier :</label>
+        <input type="number" formControlName="note" placeholder="Entrez la note">
+      </div>
+  
+  </div>
+
+  <button type="submit" [disabled]="noteForm.invalid" (click)="onSubmit()">Modifier une note</button>
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  
+</form>

@@ -1,0 +1,83 @@
+<div class="notes-container">
+  <h2 class="title">Suivie des notes</h2>
+
+  <!-- Filtres -->
+  <div class="filters">
+    <select
+      [(ngModel)]="selectedSemestre"
+      class="dropdown"
+      (change)="onSemestreChange($event)"
+      [disabled]="isProcessing"
+    >
+      <option value="" disabled selected>Semestre</option>
+      <option *ngFor="let semestre of filteredSemestres" [value]="semestre">
+        {{ semestre }}
+      </option>
+    </select>
+  </div>
+ <!-- ✅ Afficher le tableau UNIQUEMENT si modules n'est pas vide -->
+<table *ngIf="modules.length > 0" class="notes-table">
+  <thead>
+    <tr>
+      <th *ngFor="let header of headers">{{ header }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let module of modules">
+      <tr
+        *ngFor="let matiere of module.matieres; let first = first"
+        [class.ue-row]="first"
+      >
+        <td *ngIf="first" [attr.rowspan]="module.matieres.length">
+          {{ module.nomModule }}
+        </td>
+        <td *ngIf="first" [attr.rowspan]="module.matieres.length">
+          {{ module.coefModule }}
+        </td>
+
+        <td>{{ matiere.nomMatiere }}</td>
+        <td>{{ matiere.coefMatiere }}</td>
+        <td>{{ matiere.ponderation || '-' }}</td>
+        <td>{{ matiere.cc || '-' }}</td>
+        <td>{{ matiere.exam || '-' }}</td>
+        <td>{{ matiere.moyenne || '-' }}</td>
+        <td *ngIf="first" [attr.rowspan]="module.matieres.length">
+          {{ module.moyenneModule }}
+        </td>
+        <td
+        *ngIf="first"
+        [attr.rowspan]="module.matieres.length"
+        [ngClass]="{
+          valid: module.moyenneModule !== '-' && module.moyenneModule >= 10,
+          invalid: module.moyenneModule !== '-' && module.moyenneModule < 10
+        }"
+      >
+        <i
+          *ngIf="module.moyenneModule !== '-'"
+          [ngClass]="
+            module.moyenneModule >= 10
+              ? 'fas fa-check-circle'
+              : 'fas fa-times-circle'
+          "
+        ></i>
+        <span *ngIf="module.moyenneModule === '-'">-</span>
+      </td>
+      
+
+        <td>
+          <button class="download-btn" (click)="handleDownload(matiere)">
+            <i class="fas fa-download"></i> 
+          </button>
+          
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+
+
+<div  class="no-data" *ngIf="!modules || modules.length === 0">
+  <i class="fas fa-info-circle"></i> Veuillez sélectionner votre semestre actuelle pour afficher les notes.
+</div>
+
+</div>

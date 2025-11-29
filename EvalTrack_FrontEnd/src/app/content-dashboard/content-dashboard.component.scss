@@ -1,0 +1,39 @@
+.notes-container {
+    width: 1100px;
+    height: 1000px;
+    overflow-x: auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .notes-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+  
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+  
+    th {
+      background-color: #112D4E;
+      color: white;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+    }
+  
+    tr:nth-child(even) {
+      background-color: #e3e7ec;
+    }
+  
+    tr:hover {
+      background-color: #e3e7ec;
+    }
+  
+    .ue-row {
+      background-color: #e3e7ec !important;
+      font-weight: bold;
+    }
+  }

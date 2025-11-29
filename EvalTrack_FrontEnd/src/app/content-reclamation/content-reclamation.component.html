@@ -1,0 +1,64 @@
+<h2 class="title">Soumettre une reclamation</h2>
+<div class="reclamation-container">
+  <form class="reclamation-form" #reclamationForm="ngForm" (ngSubmit)="onSubmit(reclamationForm)">
+    <div class="form-group">
+      <label for="type-reclamation">Type de réclamation :</label>
+      <select id="type-reclamation" name="type" required [(ngModel)]="reclamation.type">
+        <option value="ERREUR_NOTE_DS">Erreur dans la note de DS</option>
+        <option value="ERREUR_NOTE_EXAMEN">Erreur dans la note d'examen</option>
+        <option value="NOTE_NON_AFFICHÉE">Note non affichée</option>
+        <option value="DEMANDE_DOUBLE_CORRECTION_DS">Demande de double correction DS</option>
+        <option value="DEMANDE_DOUBLE_CORRECTION_EXAMEN">Demande de double correction Examen</option>
+        <option value="AUTRE">Autre (à signaler par email)</option>
+      </select>
+    </div>
+
+    
+
+    <div class="form-group">
+      <label for="matiere">Matière concernée :</label>
+      <input type="text" id="matiere" name="matiereConcerne" required [(ngModel)]="reclamation.matiereConcerne">
+    </div>
+
+    <div class="form-group">
+      <label for="enseignant">Nom de l'enseignant :</label>
+      <input type="text" id="enseignant" name="nomProf" required [(ngModel)]="reclamation.nomProf">
+    </div>
+
+    <button type="submit" class="send-button" [disabled]="!reclamationForm.valid">Envoyer</button>
+  </form>
+
+  <div class="previous-reclamations" *ngIf="reclamationsPrecedentes.length > 0">
+    <h2>Réclamations précédentes :</h2>
+    <div  class="reclamation-card"  *ngFor="let reclamation of reclamationsPrecedentes">
+      <div class="reclamation-header">
+        <h3>{{ reclamation.type }}</h3>
+        <p><strong>Matière concernée:</strong> {{ reclamation.matiereConcerne }}</p>
+        <p><strong>Date de création:</strong> {{ reclamation.dateCreation }}</p>
+      </div>
+      
+      <div class="reclamation-info">
+        <p><strong>Le nom d'enseignant:</strong> {{ reclamation.nomProf }}</p>
+      </div>
+
+      <div class="workflow-section">
+        <h4>Suivi du workflow :</h4>
+        <div class="steps-container">
+          <div *ngFor="let step of workflow; let i = index" class="step">
+            <div 
+              class="step-number" 
+              [ngClass]="{ 
+                'active': i <= getStepForReclamation(reclamation), 
+                'workflow-accepted': reclamation.statut === 'ACCEPTEE' && i === 2,
+                'workflow-processed': reclamation.statut === 'TRAITEE' && i === 3
+              }">
+              {{ i + 1 }}
+            </div>
+            <div class="step-content">{{ step }}</div>
+            <div class="connector" *ngIf="i < workflow.length - 1"></div>
+          </div>          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

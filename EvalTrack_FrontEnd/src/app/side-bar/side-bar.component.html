@@ -1,0 +1,27 @@
+<nav class="sidebar">
+
+  <img src="../../assets/logo.png" alt="Logo" class="logo"/>
+  
+  <ul>
+    <!-- Notes -->
+    <li class="menu-item">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <a  routerLink="/etudiant-page-dashboard" >Dashboard</a>
+    </li>
+
+    <li class="menu-item">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <a  routerLink="/etudiant-page-reclamation"  >Reclamation</a>
+    </li>
+    <!-- Configuration -->
+    <li class="menu-item">
+      <i class="fa-solid fa-gears"></i>
+      <a routerLink="/etudiant-page-configuration" routerLinkActive="active">Configuration</a>
+    </li>
+    <!-- Exit -->
+    <li class="menu-item">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <a (click)="onLogout()">Exit</a>
+    </li>
+  </ul>
+</nav>

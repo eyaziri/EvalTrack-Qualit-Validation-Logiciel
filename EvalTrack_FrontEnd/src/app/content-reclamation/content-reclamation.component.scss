@@ -1,0 +1,279 @@
+.reclamation-container {
+  max-width: 700px;
+  margin: auto;
+  padding: 2rem;
+  background: #fefefe;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 3rem;
+    color: #2c3e50;
+  }
+
+  .reclamation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+
+      label {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #2c3e50;
+        letter-spacing: 0.5px;
+      }
+
+      input,
+      select {
+        padding: 0.7rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        background-color: #f9f9f9;
+        transition: border 0.2s ease;
+
+        &:focus {
+          border-color: #3498db;
+          outline: none;
+          background-color: white;
+        }
+      }
+    }
+  }
+
+  .send-button {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease;
+
+    &:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+  }
+
+  .workflow-section {
+    margin-top: 3rem;
+
+    .steps-container {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 2rem;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex: 1;
+      padding: 0 0.5rem;
+
+      .step-number {
+        background-color: #bdc3c7;
+        color: white;
+        font-weight: bold;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+
+        &.active {
+          background-color: #2ecc71;
+        }
+      }
+
+      .step-content {
+        text-align: center;
+        font-size: 1rem;
+        color: #34495e;
+        font-weight: 500;
+      }
+
+      .connector {
+        position: absolute;
+        top: 20px;
+        right: -50%;
+        width: 100%;
+        height: 2px;
+        background-color: #ccc;
+        z-index: -1;
+      }
+
+      &:last-child .connector {
+        display: none;
+      }
+    }
+  }
+}
+
+.reclamation-container {
+  padding: 20px;
+}
+
+.reclamation-form {
+  margin-bottom: 30px;
+}
+
+.reclamation-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.reclamation-header {
+  margin-bottom: 15px;
+}
+
+.reclamation-header h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.reclamation-info p {
+  margin-bottom: 8px;
+}
+
+.workflow-section {
+  margin-top: 20px;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.step {
+  text-align: center;
+  position: relative;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  line-height: 30px;
+  margin-bottom: 5px;
+}
+
+.step-number.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.step-content {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.connector {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 20px;
+  height: 2px;
+  background-color: #ddd;
+  margin-top: -1px;
+}
+
+.reclamation-card .step-number.active {
+  background-color: #4caf50;
+}
+
+.reclamation-card .step-number {
+  background-color: #ccc;
+}
+.step-number.active {
+  background-color: #4caf50; /* Green for active steps */
+}
+
+.workflow-accepted {
+  background-color: #4caf50; /* Green for accepted status */
+}
+
+.workflow-processed {
+  background-color: #ff9800; /* Orange for processed status */
+}
+
+.step-number {
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #f1f1f1;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.connector {
+  width: 2px;
+  height: 20px;
+  background-color: #ddd;
+}
+
+.send-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.title {
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+  margin-left: 10px;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #c3e6cb;
+}
+
+

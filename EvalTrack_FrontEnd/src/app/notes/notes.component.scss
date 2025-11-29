@@ -1,0 +1,176 @@
+.notes-container {
+  padding: 5px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-left: 6px; /* Espacement à gauche */
+}
+
+.title {
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.dropdown {
+  background-color: #f9f9f9;
+  border: 2px solid #398F96;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  width: 170px;
+  margin: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.import-section {
+  margin-top: 20px;
+}
+
+.import-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.import-button {
+  padding: 12px;
+  background: linear-gradient(to right, #398F96, #5AB8AA);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.import-button:hover {
+  background: linear-gradient(to right, #5AB8AA, #398F96);
+}
+
+.file-info {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.notes-table th, .notes-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.notes-table th {
+  background-color: #f4f4f4;
+}
+
+.message {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.success-message {
+  background-color: #4CAF50;
+  color: white;
+  width: 500px;
+  margin-left: 360px;
+}
+
+.error-message {
+  background-color: #f44336;
+  color: white;
+  width: 500px;
+  margin-left: 360px;
+}
+
+.add-button {
+  padding: 12px;
+  background: linear-gradient(to right, #398F96, #5AB8AA);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.add-button:hover {
+  background: linear-gradient(to right, #5AB8AA, #398F96);
+}
+
+.status-message {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.error {
+  background-color: #f44336;
+  color: white;
+}
+
+.no-data {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .notes-container {
+    padding: 10px;
+  }
+
+  .dropdown {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .table-container {
+    font-size: 12px;
+    
+  }
+
+  .add-button {
+    margin: 20px auto 0 auto;
+  }
+}

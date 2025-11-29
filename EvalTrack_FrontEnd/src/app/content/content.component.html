@@ -1,0 +1,28 @@
+<div class="page-container">
+  <div class="content-container">
+    <div class="card">
+      <div class="card-header">Changement du mot de passe</div>
+
+      <form (ngSubmit)="update()">
+        <label for="email">Email</label>
+        <input id="email" type="email" [(ngModel)]="email" name="email" required />
+
+        <label for="oldPassword">Mot de passe actuel</label>
+        <input id="oldPassword" type="password" [(ngModel)]="oldPassword" name="oldPassword" required />
+
+        <label for="newPassword">Nouveau mot de passe</label>
+        <input id="newPassword" type="password" [(ngModel)]="newPassword" name="newPassword" required />
+
+        <label for="confirmPassword">Vérification du nouveau mot de passe</label>
+        <input id="confirmPassword" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required />
+
+        <button class="btn btn-primary" type="submit">
+          <i class="fas fa-key"></i> Modifier
+        </button>
+      </form>
+
+      <div *ngIf="successMessage" class="alert alert-success custom-alert">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="alert alert-danger custom-alert">{{ errorMessage }}</div>
+    </div>
+  </div>
+</div>

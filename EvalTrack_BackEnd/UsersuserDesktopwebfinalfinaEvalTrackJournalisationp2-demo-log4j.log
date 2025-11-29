@@ -1155,3 +1155,8 @@
 2025-11-29 15:27:14.157 INFO     [http-nio-8080-exec-8]:com.EvalTrack.Log.LoggingAspect - Appel de la méthode getAllSections : 
 2025-11-29 15:27:14.158 INFO     [http-nio-8080-exec-8]:com.EvalTrack.Log.LoggingAspect - Appel de la méthode getAllSections : 
 2025-11-29 15:27:14.159 INFO     [http-nio-8080-exec-8]:com.EvalTrack.Log.LoggingAspect - Appel de la méthode findAll : 
+2025-11-29 15:46:27.347 INFO     [restartedMain]:com.EvalTrack.Log.LoggingAspect - Appel de la méthode passwordEncoder : 
+2025-11-29 15:46:27.935 INFO     [restartedMain]:com.EvalTrack.Log.LoggingAspect - Appel de la méthode corsConfigurer : 
+2025-11-29 15:46:28.005 INFO     [restartedMain]:com.EvalTrack.Log.LoggingAspect - Appel de la méthode userDetailsService : 
+2025-11-29 15:46:28.422 INFO     [restartedMain]:com.EvalTrack.Log.LoggingAspect - Appel de la méthode addCorsMappings : 
+2025-11-29 15:46:28.646 INFO     [restartedMain]:com.EvalTrack.Log.LoggingAspect - Appel de la méthode securityFilterChain : 

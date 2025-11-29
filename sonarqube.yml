@@ -35,6 +35,6 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=eyaziri_EvalTrack-Qualit-Validation-Logiciel
-            -Dsonar.organization=YOUR_ORG
+            -Dsonar.organization=eyaziri
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.sources=.
